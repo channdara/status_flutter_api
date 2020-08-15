@@ -11,4 +11,5 @@ async function bootstrap(): Promise<number> {
 
 bootstrap().then(port => {
   Logger.log(`Server started running on http://localhost:${port}/`, 'Bootstrap');
+  Logger.log(`Server started running on http://localhost:${port}/`, 'Bootstrap');
 });
