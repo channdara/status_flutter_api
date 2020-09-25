@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { ResponseHandler } from '../handler/response.handler';
+import { User } from '../entities/user.entity';
 
 @Controller('users')
 export class UserController {
@@ -8,25 +9,23 @@ export class UserController {
   }
 
   @Get()
-  getUsers() {
-    return this.service.getAllUsers().then(users => {
-      return ResponseHandler.success('Get all users', users);
-    }).catch(error => {
-      return ResponseHandler.error(error);
-    });
+  getUsers(): any {
+    return this.service.getAllUsers()
+      .then(users => ResponseHandler.success('Get all users success', users))
+      .catch(error => ResponseHandler.error(error));
   }
 
   @Get(':id')
-  getUser(@Param() param: any) {
-    return this.service.getUser(param.id).then(user => {
-      return ResponseHandler.success('Found user', user);
-    }).catch(message => {
-      return ResponseHandler.error(message);
-    });
+  getUser(@Param() param: any): any {
+    return this.service.getUser(param.id)
+      .then(user => ResponseHandler.success('Get user success', user))
+      .catch(message => ResponseHandler.error(message));
   }
 
   @Post()
-  postUser(@Body() body: any) {
-    console.log(body);
+  postUser(@Body() body: User): any {
+    return this.service.postUser(body)
+      .then(user => ResponseHandler.success('Register user success', user))
+      .catch(message => ResponseHandler.error(message));
   }
 }

@@ -17,4 +17,8 @@ export class UserService {
     if (user == undefined) throw 'User not found';
     return user;
   }
+
+  async postUser(user: any): Promise<User> {
+    return await this.repo.save(user);
+  }
 }
