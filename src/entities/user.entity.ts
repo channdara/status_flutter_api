@@ -1,30 +1,34 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { IsEmail, IsNotEmpty, IsUrl } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsUniqueEmail } from '../utils/validator.util';
 
-@Entity()
-export class User {
+@Entity('users')
+export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  @IsEmail()
-  @IsNotEmpty()
+  @IsEmail({}, { message: 'Email address is invalid' })
+  @IsNotEmpty({ message: 'Email address is required' })
+  @IsUniqueEmail({ message: 'Email already existed, try another email or reset your password' })
   email: string;
 
   @Column()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Gender required' })
   gender: number;
 
   @Column()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Name required' })
   name: string;
 
   @Column()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Phone number required' })
   phone_number: string;
 
-  @Column()
-  @IsUrl()
-  @IsNotEmpty()
+  @Column({ default: null })
   profile_url: string;
+
+  @Column()
+  @IsNotEmpty({ message: 'Password is required' })
+  password: string;
 }

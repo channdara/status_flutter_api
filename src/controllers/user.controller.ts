@@ -1,7 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UserService } from '../services/user.service';
-import { ResponseHandler } from '../handler/response.handler';
-import { User } from '../entities/user.entity';
+import { resError, resSuccess } from '../utils/response.util';
+import { UserEntity } from '../entities/user.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { editFileName, imageFileFilter } from '../utils/file.util';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UserController {
@@ -9,23 +13,33 @@ export class UserController {
   }
 
   @Get()
-  getUsers(): any {
+  @UseGuards(AuthGuard('jwt'))
+  getAllUsers(): any {
     return this.service.getAllUsers()
-      .then(users => ResponseHandler.success('Get all users success', users))
-      .catch(error => ResponseHandler.error(error));
+      .then(users => resSuccess('Get all users success', users))
+      .catch(error => resError(error));
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard('jwt'))
   getUser(@Param() param: any): any {
     return this.service.getUser(param.id)
-      .then(user => ResponseHandler.success('Get user success', user))
-      .catch(message => ResponseHandler.error(message));
+      .then(user => resSuccess('Get user success', user))
+      .catch(message => resError(message));
   }
 
   @Post()
-  postUser(@Body() body: User): any {
-    return this.service.postUser(body)
-      .then(user => ResponseHandler.success('Register user success', user))
-      .catch(message => ResponseHandler.error(message));
+  @UseInterceptors(FileInterceptor('image', {
+    storage: diskStorage({
+      destination: 'public/user_profile',
+      filename: editFileName,
+      fileFilter: imageFileFilter,
+    }),
+  }))
+  createUser(@Body() body: UserEntity, @UploadedFile() file: any): any {
+    const user = JSON.parse(JSON.stringify(body));
+    return this.service.createUser(user, file)
+      .then(user => resSuccess('Register user success', user))
+      .catch(message => resError(message));
   }
 }
