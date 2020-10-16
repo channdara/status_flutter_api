@@ -6,6 +6,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName, imageFileFilter } from '../utils/file.util';
 import { AuthGuard } from '@nestjs/passport';
+import { auth_guard_type } from '../constants/api.constant';
+import { MessageConstant } from '../constants/message.constant';
 
 @Controller('users')
 export class UserController {
@@ -13,25 +15,25 @@ export class UserController {
   }
 
   @Get()
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard(auth_guard_type))
   getAllUsers(): any {
     return this.service.getAllUsers()
-      .then(users => resSuccess('Get all users success', users))
+      .then(users => resSuccess(MessageConstant.success_get_data, users))
       .catch(error => resError(error));
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard(auth_guard_type))
   getUser(@Param() param: any): any {
     return this.service.getUser(param.id)
-      .then(user => resSuccess('Get user success', user))
+      .then(user => resSuccess(MessageConstant.success_get_data, user))
       .catch(message => resError(message));
   }
 
   @Post()
   @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
-      destination: 'public/user_profile',
+      destination: 'tmp',
       filename: editFileName,
       fileFilter: imageFileFilter,
     }),
@@ -39,7 +41,7 @@ export class UserController {
   createUser(@Body() body: UserEntity, @UploadedFile() file: any): any {
     const user = JSON.parse(JSON.stringify(body));
     return this.service.createUser(user, file)
-      .then(user => resSuccess('Register user success', user))
+      .then(user => resSuccess(MessageConstant.success_set_data, user))
       .catch(message => resError(message));
   }
 }

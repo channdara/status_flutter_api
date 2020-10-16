@@ -1,4 +1,6 @@
 import { extname } from 'path';
+import * as fs from 'fs-extra';
+import { MessageConstant } from '../constants/message.constant';
 
 export const editFileName = (req, file, callback) => {
   const fileExtName = extname(file.originalname);
@@ -7,7 +9,13 @@ export const editFileName = (req, file, callback) => {
 
 export const imageFileFilter = (req, file, callback) => {
   if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-    return callback(new Error('Only image files are allowed!'), false);
+    callback(new Error(MessageConstant.invalid_image), false);
   }
   callback(null, true);
 };
+
+export function moveFile(from: string, to: string): void {
+  fs.rename(from, to, err => {
+    if (err) throw err;
+  });
+}

@@ -1,9 +1,10 @@
 import { IsNotEmpty } from 'class-validator';
+import { MessageConstant } from '../constants/message.constant';
 
 export class AuthValidation {
-  @IsNotEmpty({ message: 'Email address is required' })
+  @IsNotEmpty({ message: MessageConstant.required_email })
   email: string;
 
-  @IsNotEmpty({ message: 'Password is required' })
+  @IsNotEmpty({ message: MessageConstant.required_password })
   password: string;
 }

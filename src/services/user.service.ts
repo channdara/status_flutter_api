@@ -4,6 +4,8 @@ import { UserEntity } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { base_url } from '../constants/api.constant';
 import * as bcrypt from 'bcrypt';
+import { moveFile } from '../utils/file.util';
+import { MessageConstant } from '../constants/message.constant';
 
 @Injectable()
 export class UserService {
@@ -11,25 +13,21 @@ export class UserService {
   }
 
   async getAllUsers(): Promise<UserEntity[]> {
-    const users = await this.repo.find();
-    return users.map(user => {
-      delete user.password;
-      return user;
-    });
+    return await this.repo.find();
   }
 
   async getUser(id: number): Promise<UserEntity> {
     const user = await this.repo.findOne(id);
-    if (user == undefined) throw 'User not found';
-    delete user.password;
+    if (user == undefined) throw MessageConstant.not_found_user;
     return user;
   }
 
   async createUser(user: UserEntity, file: any): Promise<UserEntity> {
-    if (file != undefined) user.profile_url = `${base_url}user_profile/${file.filename}`;
+    if (file != undefined) {
+      moveFile(file.path, `public/user_profile/${file.filename}`);
+      user.profile_url = `${base_url}user_profile/${file.filename}`;
+    }
     user.password = await bcrypt.hash(user.password, 10);
-    const saved = await this.repo.save(user);
-    delete saved.password;
-    return saved;
+    return await this.repo.save(user);
   }
 }

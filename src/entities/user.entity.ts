@@ -1,6 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { IsUniqueEmail } from '../utils/validator.util';
+import { MessageConstant } from '../constants/message.constant';
+import { Exclude } from 'class-transformer';
 
 @Entity('users')
 export class UserEntity {
@@ -8,27 +10,28 @@ export class UserEntity {
   id: number;
 
   @Column()
-  @IsEmail({}, { message: 'Email address is invalid' })
-  @IsNotEmpty({ message: 'Email address is required' })
-  @IsUniqueEmail({ message: 'Email already existed, try another email or reset your password' })
+  @IsEmail({}, { message: MessageConstant.invalid_email })
+  @IsNotEmpty({ message: MessageConstant.required_email })
+  @IsUniqueEmail({ message: MessageConstant.unique_email })
   email: string;
 
   @Column()
-  @IsNotEmpty({ message: 'Gender required' })
+  @IsNotEmpty({ message: MessageConstant.required_gender })
   gender: number;
 
   @Column()
-  @IsNotEmpty({ message: 'Name required' })
+  @IsNotEmpty({ message: MessageConstant.required_name })
   name: string;
 
   @Column()
-  @IsNotEmpty({ message: 'Phone number required' })
+  @IsNotEmpty({ message: MessageConstant.required_phone_number })
   phone_number: string;
 
   @Column({ default: null })
   profile_url: string;
 
   @Column()
-  @IsNotEmpty({ message: 'Password is required' })
+  @Exclude({ toPlainOnly: true })
+  @IsNotEmpty({ message: MessageConstant.required_password })
   password: string;
 }
