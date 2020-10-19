@@ -4,8 +4,9 @@ import { UserEntity } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { base_url } from '../constants/api.constant';
 import * as bcrypt from 'bcrypt';
-import { moveFile } from '../utils/file.util';
+import { deleteFile, moveFile } from '../utils/file.util';
 import { MessageConstant } from '../constants/message.constant';
+import { UserUpdateValidation } from '../validations/user.update.validation';
 
 @Injectable()
 export class UserService {
@@ -32,5 +33,22 @@ export class UserService {
       delete res.password;
       return res;
     });
+  }
+
+  async updateUser(body: UserUpdateValidation, file: any, req: any): Promise<UserEntity> {
+    const user = await this.repo.findOne(req.user.id);
+    if (file != undefined) {
+      moveFile(file.path, `public/user_profile/${file.filename}`);
+      user.profile_url = `${base_url}user_profile/${file.filename}`;
+    } else {
+      if (user.profile_url != null) {
+        deleteFile(user.profile_url.replace(base_url, 'public/'));
+        user.profile_url = null;
+      }
+    }
+    user.gender = body.gender;
+    user.name = body.name;
+    user.phone_number = body.phone_number;
+    return await this.repo.save(user);
   }
 }

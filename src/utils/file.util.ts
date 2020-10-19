@@ -15,7 +15,14 @@ export const imageFileFilter = (req, file, callback) => {
 };
 
 export function moveFile(from: string, to: string): void {
-  fs.rename(from, to, err => {
-    if (err) throw err;
+  fs.rename(from, to, error => {
+    if (error) throw error;
+  });
+}
+
+export function deleteFile(path: string): void {
+  fs.access(path, fs.F_OK, (error) => {
+    if (error) return;
+    fs.unlink(path);
   });
 }
