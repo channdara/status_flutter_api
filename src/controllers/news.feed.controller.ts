@@ -16,15 +16,15 @@ export class NewsFeedController {
   @UseGuards(AuthGuard(auth_guard_type))
   postNewsFeed(@Body() body: NewsFeedEntity, @Req() req: any): any {
     return this.service.postNewsFeed(body, req)
-      .then(res => resSuccess(MessageConstant.success_set_data, res))
+      .then(data => resSuccess(MessageConstant.success_set_data, data))
       .catch(error => resError(error));
   }
 
   @Get()
   @UseGuards(AuthGuard(auth_guard_type))
-  getAllNewsFeed(): any {
-    return this.service.getAllNewsFeed()
-      .then(res => resSuccess(MessageConstant.success_get_data, res))
+  getAllNewsFeed(@Req() req: any): any {
+    return this.service.getAllNewsFeed(req.user.id)
+      .then(data => resSuccess(MessageConstant.success_get_data, data))
       .catch(error => resError(error));
   }
 
@@ -60,4 +60,11 @@ export class NewsFeedController {
       .catch(error => resError(error));
   }
 
+  @Post('/like_or_unlike/:id')
+  @UseGuards(AuthGuard(auth_guard_type))
+  likeOrUnlikeNewsFeed(@Param() param: any, @Req() req: any): any {
+    return this.service.likeOrUnlikeNewsFeed(param.id, req)
+      .then(data => resSuccess(MessageConstant.success_update_data, data))
+      .catch(error => resError(error));
+  }
 }

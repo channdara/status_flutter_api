@@ -18,5 +18,12 @@ export function resError(message: string): any {
 }
 
 export function payload(user: UserEntity): any {
-  return { id: user.id, email: user.email };
+  return {
+    id: user.id,
+    email: user.email,
+    gender: user.gender,
+    name: user.name,
+    phone_number: user.phone_number,
+    profile_url: user.profile_url,
+  };
 }

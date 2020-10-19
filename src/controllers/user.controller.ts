@@ -18,7 +18,7 @@ export class UserController {
   @UseGuards(AuthGuard(auth_guard_type))
   getAllUsers(): any {
     return this.service.getAllUsers()
-      .then(users => resSuccess(MessageConstant.success_get_data, users))
+      .then(data => resSuccess(MessageConstant.success_get_data, data))
       .catch(error => resError(error));
   }
 
@@ -26,8 +26,8 @@ export class UserController {
   @UseGuards(AuthGuard(auth_guard_type))
   getUser(@Param() param: any): any {
     return this.service.getUser(param.id)
-      .then(user => resSuccess(MessageConstant.success_get_data, user))
-      .catch(message => resError(message));
+      .then(data => resSuccess(MessageConstant.success_get_data, data))
+      .catch(error => resError(error));
   }
 
   @Post()
@@ -41,7 +41,7 @@ export class UserController {
   createUser(@Body() body: UserEntity, @UploadedFile() file: any): any {
     const user = JSON.parse(JSON.stringify(body));
     return this.service.createUser(user, file)
-      .then(user => resSuccess(MessageConstant.success_set_data, user))
-      .catch(message => resError(message));
+      .then(data => resSuccess(MessageConstant.success_set_data, data))
+      .catch(error => resError(error));
   }
 }

@@ -28,6 +28,9 @@ export class UserService {
       user.profile_url = `${base_url}user_profile/${file.filename}`;
     }
     user.password = await bcrypt.hash(user.password, 10);
-    return await this.repo.save(user);
+    return this.repo.save(user).then(res => {
+      delete res.password;
+      return res;
+    });
   }
 }

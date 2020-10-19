@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { IsNotEmpty, MaxLength } from 'class-validator';
 import { UserEntity } from './user.entity';
 import { Exclude } from 'class-transformer';
@@ -10,7 +10,7 @@ export class NewsFeedEntity {
 
   @Column()
   @IsNotEmpty()
-  @MaxLength(255)
+  @MaxLength(200)
   content: string;
 
   @Column()
@@ -20,12 +20,16 @@ export class NewsFeedEntity {
   @Exclude({ toPlainOnly: true })
   user_id: number;
 
-  @Column({ default: 0 })
-  like_amount: number;
-
   @ManyToOne(() => UserEntity)
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
-  likedBy: any;
+  @ManyToMany(() => UserEntity)
+  @JoinTable({ joinColumn: { name: 'news_feed_id' }, inverseJoinColumn: { name: 'user_id' } })
+  @Exclude({ toPlainOnly: true })
+  likes: UserEntity[];
+
+  like_amount: number;
+
+  is_liked: boolean;
 }
