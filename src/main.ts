@@ -6,7 +6,7 @@ import { MainModule } from './main.module';
 async function bootstrap() {
   const app = await NestFactory.create(MainModule);
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(port);
+  await app.listen(process.env.PORT || port);
 }
 
 bootstrap().then(() => Logger.log(`Server is running on ${base_url}`, 'Bootstrap'));
