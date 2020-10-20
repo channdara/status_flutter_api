@@ -1,10 +1,10 @@
 {
   "type": "mysql",
-  "host": "localhost",
+  "host": "us-cdbr-east-02.cleardb.com",
   "port": 3306,
-  "username": "root",
-  "password": "root",
-  "database": "status_project",
+  "username": "b20bd846ed2041",
+  "password": "10879c2a",
+  "database": "heroku_389833af6151049",
   "synchronize": true,
   "entities": [
     "dist/entities/*{.ts,.js}"

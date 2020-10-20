@@ -26,3 +26,5 @@ export function deleteFile(path: string): void {
     fs.unlink(path);
   });
 }
+
+export const fileURL = process.env.API_ENV === 'dev' ? '' : '';

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { Repository } from 'typeorm';
-import { base_url } from '../constants/api.constant';
 import * as bcrypt from 'bcrypt';
 import { deleteFile, moveFile } from '../utils/file.util';
 import { MessageConstant } from '../constants/message.constant';
@@ -26,7 +25,7 @@ export class UserService {
   async createUser(user: UserEntity, file: any): Promise<UserEntity> {
     if (file != undefined) {
       moveFile(file.path, `public/user_profile/${file.filename}`);
-      user.profile_url = `${base_url}user_profile/${file.filename}`;
+      user.profile_url = `${process.env.API_URL}user_profile/${file.filename}`;
     }
     user.password = await bcrypt.hash(user.password, 10);
     return this.repo.save(user).then(res => {
@@ -39,10 +38,10 @@ export class UserService {
     const user = await this.repo.findOne(req.user.id);
     if (file != undefined) {
       moveFile(file.path, `public/user_profile/${file.filename}`);
-      user.profile_url = `${base_url}user_profile/${file.filename}`;
+      user.profile_url = `${process.env.API_URL}user_profile/${file.filename}`;
     } else {
       if (user.profile_url != null) {
-        deleteFile(user.profile_url.replace(base_url, 'public/'));
+        deleteFile(user.profile_url.replace(process.env.API_URL, 'public/'));
         user.profile_url = null;
       }
     }

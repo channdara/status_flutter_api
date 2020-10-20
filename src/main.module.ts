@@ -5,10 +5,12 @@ import { join } from 'path';
 import { UserModule } from './modules/user.module';
 import { AuthModule } from './modules/auth.module';
 import { NewsFeedModule } from './modules/news.feed.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
+    ConfigModule.forRoot(),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
