@@ -5,9 +5,6 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "engines": {
-    "node": "11.x"
-  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -37,6 +34,7 @@
     "bcrypt": "^5.0.0",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
+    "fs-extra": "^9.0.1",
     "multer": "^1.4.2",
     "mysql": "^2.18.1",
     "nestjs-minio-client": "^1.0.5",
