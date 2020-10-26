@@ -1,87 +1,66 @@
 # API Documentation
 ## Auth
 <details>
-    <summary><b>Login</b></summary>
+    <summary>Login</summary>
     
-    _ endpoint POST: /auth/login
-    _ body: email, password
-    _ authorization: no
+    * endpoint POST: /auth/login
+    * authorization: NO
+    * body: email, password
+    * param:
 </details>
 
 <details>
-    <summary><b>Logout</b></summary>
+    <summary>Logout</summary>
     
-    _ endpoint:
-    _ body:
-    _ authorization:
+    * endpoint:
+    * authorization:
+    * body:
+    * param:
 </details>
 
 ## User
-* **Get all users**
-```
-_ endpoint GET: /users
-_ body:
-_ authorization: yes
-```
-* **Get user by ID**
-```
-_ endpoint GET: /users/{user_id}
-_ body:
-_ authorization: yes
-```
-* **Create user**
-```
-_ endpoint POST: /users 
-_ body: email, gender, name, phone_number, password, image
-_ authorization: no
-```
-* **Update user**
-```
-_ endpoint PUT: 
-_ body: gender, name, phone_number, image
-_ authorization: yes
-```
+<details>
+    <summary>Get All Users</summary>
+    
+    * endpoint GET: /users
+    * authorization: YES
+    * body:
+    * param:
+</details>
+
+<details>
+    <summary>Get User By ID</summary>
+    
+    * endpoint GET: /users/{user_id}
+    * authorization: YES
+    * body:
+    * param:
+</details>
+
+<details>
+    <summary>Create User</summary>
+    
+    * endpoint POST: /users
+    * authorization: NO
+    * body: email, gender, name, phone_number, password, image
+    * param:
+</details>
+
+<details>
+    <summary>Update User</summary>
+    
+    * endpoint PUT: /users
+    * authorization: YES
+    * body: gender, name, phone_number, image
+    * param:
+</details>
 
 ## News Feed
-* **Get all news feed**
-```
-_ endpoint GET: 
-_ body:
-_ authorization: yes
-```
-* **Get only my news feed**
-```
-_ endpoint GET: 
-_ body:
-_ authorization: yes
-```
-* **Get news feed by ID**
-```
-_ endpoint GET: 
-_ body:
-_ authorization: yes
-```
-* **Post new news feed**
-```
-_ endpoint GET: 
-_ body:
-_ authorization: yes
-```
-* **Like or unlike news feed**
-```
-_ endpoint GET: 
-_ body:
-_ authorization: yes
-```
-* **Update news feed**
-```
-_ endpoint GET: 
-_ body:
-_ authorization: yes
-```
-* **Delete news feed**
-```
-_ endpoint GET: 
-_ body:
-_ authorization: yes
-```
+<details>
+    <summary>Logout</summary>
+    
+    * endpoint:
+    * authorization:
+    * body:
+    * param:
+</details>
