@@ -1,4 +1,8 @@
 # API Documentation
+* Base URL for the environments:
+    * dev: http://localhost:3000
+    * stg: https://status-flutter-api.herokuapp.com
+    * prod:
 ## Auth
 <details>
     <summary>Login</summary>
