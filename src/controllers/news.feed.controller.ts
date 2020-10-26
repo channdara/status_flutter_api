@@ -44,7 +44,7 @@ export class NewsFeedController {
       .catch(error => resError(error));
   }
 
-  @Put('/update')
+  @Put()
   @UseGuards(AuthGuard(auth_guard_type))
   updateNewsFeed(@Body() body: FeedUpdateValidation, @Req() req: any): any {
     return this.service.updateNewsFeed(body, req)
@@ -52,7 +52,7 @@ export class NewsFeedController {
       .catch(error => resError(error));
   }
 
-  @Delete('/delete/:id')
+  @Delete(':id')
   @UseGuards(AuthGuard(auth_guard_type))
   deleteNewsFeed(@Param() param: any, @Req() req: any): any {
     return this.service.deleteNewsFeed(param.id, req)
