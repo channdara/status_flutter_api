@@ -6,6 +6,7 @@ import { UserModule } from './modules/user.module';
 import { AuthModule } from './modules/auth.module';
 import { NewsFeedModule } from './modules/news.feed.module';
 import { ConfigModule } from '@nestjs/config';
+import { CommentModule } from './modules/comment.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ConfigModule } from '@nestjs/config';
     UserModule,
     AuthModule,
     NewsFeedModule,
+    CommentModule,
   ],
 })
 export class MainModule {

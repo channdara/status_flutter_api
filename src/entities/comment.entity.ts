@@ -1,13 +1,19 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { IsNotEmpty, MaxLength } from 'class-validator';
-import { UserEntity } from './user.entity';
 import { Exclude } from 'class-transformer';
+import { UserEntity } from './user.entity';
 import { MessageConstant } from '../constants/message.constant';
+import { NewsFeedEntity } from './news.feed.entity';
 
-@Entity('news_feeds')
-export class NewsFeedEntity {
+@Entity('comments')
+export class CommentEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  @IsNotEmpty({ message: MessageConstant.required_feed_id })
+  @Exclude({ toPlainOnly: true })
+  news_feed_id: number;
 
   @Column()
   @Exclude({ toPlainOnly: true })
@@ -25,12 +31,8 @@ export class NewsFeedEntity {
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
-  @ManyToMany(() => UserEntity)
-  @JoinTable({ joinColumn: { name: 'news_feed_id' }, inverseJoinColumn: { name: 'user_id' } })
+  @ManyToOne(() => NewsFeedEntity)
+  @JoinColumn({ name: 'news_feed_id' })
   @Exclude({ toPlainOnly: true })
-  likes: UserEntity[];
-
-  like_amount: number;
-
-  is_liked: boolean;
+  news_feed: NewsFeedEntity;
 }

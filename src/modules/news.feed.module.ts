@@ -8,10 +8,7 @@ import { UserEntity } from '../entities/user.entity';
 @Module({
   providers: [NewsFeedService],
   controllers: [NewsFeedController],
-  imports: [TypeOrmModule.forFeature([
-    NewsFeedEntity,
-    UserEntity,
-  ])],
+  imports: [TypeOrmModule.forFeature([NewsFeedEntity, UserEntity])],
 })
 export class NewsFeedModule {
 }

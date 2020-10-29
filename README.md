@@ -122,3 +122,40 @@
     * body:
     * param:
 </details>
+
+## Comment
+<details>
+    <summary>Get All Comments</summary>
+    
+    _ endpoint GET: /comment/in_news_feed/{news_feed_id}
+    _ authorization: YES
+    _ body:
+    _ param:
+</details>
+
+<details>
+    <summary>Post Comment</summary>
+    
+    _ endpoint POST: /comment
+    _ authorization: YES
+    _ body: news_feed_id, content
+    _ param:
+</details>
+
+<details>
+    <summary>Update Comment</summary>
+    
+    _ endpoint PUT: /comment/{comment_id}
+    _ authorization: YES
+    _ body: content
+    _ param:
+</details>
+
+<details>
+    <summary>Delete Comment</summary>
+    
+    _ endpoint POST: /comment/{comment_id}
+    _ authorization: YES
+    _ body:
+    _ param:
+</details>
