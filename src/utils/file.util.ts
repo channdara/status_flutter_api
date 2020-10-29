@@ -21,10 +21,8 @@ export function moveFile(from: string, to: string): void {
 }
 
 export function deleteFile(path: string): void {
-  fs.access(path, fs.F_OK, (error) => {
+  fs.access(path, fs.F_OK, async (error) => {
     if (error) return;
-    fs.unlink(path);
+    await fs.unlink(path);
   });
 }
-
-export const fileURL = process.env.API_ENV === 'dev' ? '' : '';

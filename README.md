@@ -1,8 +1,8 @@
 # API Documentation
 * Base URL for the environments:
-    * dev: http://localhost:3000
+    * dev: 
     * stg: https://status-flutter-api.herokuapp.com
-    * prod:
+    * prod: 
 ## Auth
 <details>
     <summary>Login</summary>
@@ -108,9 +108,9 @@
 <details>
     <summary>Update News Feed</summary>
     
-    * endpoint PUT: /news_feed
+    * endpoint PUT: /news_feed/{news_feed_id}
     * authorization: YES
-    * body: feed_id, content
+    * body: content
     * param:
 </details>
 
