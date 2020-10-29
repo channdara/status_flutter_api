@@ -154,7 +154,7 @@
 <details>
     <summary>Delete Comment</summary>
     
-    _ endpoint POST: /comment/{comment_id}
+    _ endpoint DELETE: /comment/{comment_id}
     _ authorization: YES
     _ body:
     _ param:
