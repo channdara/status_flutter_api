@@ -29,7 +29,11 @@ export class NewsFeedService {
   }
 
   async getMyNewsFeed(id: number): Promise<NewsFeedEntity[]> {
-    return await this.repo.find({ relations: ['user'], where: { user_id: id } });
+    const results = await this.repo.find({ relations: ['user', 'likes'], where: { user_id: id } });
+    return results.map(res => {
+      res.like_amount = res.likes.length;
+      return res;
+    });
   }
 
   async getNewsFeed(id: number): Promise<NewsFeedEntity> {
@@ -38,8 +42,8 @@ export class NewsFeedService {
     return feed;
   }
 
-  async updateNewsFeed(body: FeedUpdateValidation, req: any): Promise<NewsFeedEntity> {
-    const feed = await this.repo.findOne(body.feed_id);
+  async updateNewsFeed(id: number, body: FeedUpdateValidation, req: any): Promise<NewsFeedEntity> {
+    const feed = await this.repo.findOne(id);
     if (feed == undefined) throw MessageConstant.not_found_news_feed;
     if (req.user.id !== feed.user_id) throw MessageConstant.cannot_update_news_feed;
     feed.content = body.content;

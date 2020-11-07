@@ -1,8 +1,8 @@
 # API Documentation
 * Base URL for the environments:
-    * dev: http://localhost:3000
+    * dev: 
     * stg: https://status-flutter-api.herokuapp.com
-    * prod:
+    * prod: 
 ## Auth
 <details>
     <summary>Login</summary>
@@ -108,9 +108,9 @@
 <details>
     <summary>Update News Feed</summary>
     
-    * endpoint PUT: /news_feed
+    * endpoint PUT: /news_feed/{news_feed_id}
     * authorization: YES
-    * body: feed_id, content
+    * body: content
     * param:
 </details>
 
@@ -121,4 +121,41 @@
     * authorization: YES
     * body:
     * param:
+</details>
+
+## Comment
+<details>
+    <summary>Get All Comments</summary>
+    
+    _ endpoint GET: /comment/in_news_feed/{news_feed_id}
+    _ authorization: YES
+    _ body:
+    _ param:
+</details>
+
+<details>
+    <summary>Post Comment</summary>
+    
+    _ endpoint POST: /comment
+    _ authorization: YES
+    _ body: news_feed_id, content
+    _ param:
+</details>
+
+<details>
+    <summary>Update Comment</summary>
+    
+    _ endpoint PUT: /comment/{comment_id}
+    _ authorization: YES
+    _ body: content
+    _ param:
+</details>
+
+<details>
+    <summary>Delete Comment</summary>
+    
+    _ endpoint DELETE: /comment/{comment_id}
+    _ authorization: YES
+    _ body:
+    _ param:
 </details>

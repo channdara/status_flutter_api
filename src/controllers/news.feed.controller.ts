@@ -44,10 +44,10 @@ export class NewsFeedController {
       .catch(error => resError(error));
   }
 
-  @Put()
+  @Put(':id')
   @UseGuards(AuthGuard(auth_guard_type))
-  updateNewsFeed(@Body() body: FeedUpdateValidation, @Req() req: any): any {
-    return this.service.updateNewsFeed(body, req)
+  updateNewsFeed(@Param() param: any, @Body() body: FeedUpdateValidation, @Req() req: any): any {
+    return this.service.updateNewsFeed(param.id, body, req)
       .then(data => resSuccess(MessageConstant.success_update_data, data))
       .catch(error => resError(error));
   }
