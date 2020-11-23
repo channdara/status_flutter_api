@@ -20,18 +20,27 @@ export class NewsFeedService {
   }
 
   async getAllNewsFeed(id: number): Promise<NewsFeedEntity[]> {
-    const results = await this.repo.find({ relations: ['user', 'likes'] });
+    const results = await this.repo.find({
+      relations: ['user', 'likes', 'comments'],
+      order: { date: 'DESC' },
+    });
     return results.map(res => {
       res.like_amount = res.likes.length;
+      res.comment_amount = res.comments.length;
       res.is_liked = res.likes.find(value => value.id == id) != undefined;
       return res;
     });
   }
 
   async getMyNewsFeed(id: number): Promise<NewsFeedEntity[]> {
-    const results = await this.repo.find({ relations: ['user', 'likes'], where: { user_id: id } });
+    const results = await this.repo.find({
+      relations: ['user', 'likes', 'comments'],
+      where: { user_id: id },
+      order: { date: 'DESC' },
+    });
     return results.map(res => {
       res.like_amount = res.likes.length;
+      res.comment_amount = res.comments.length;
       return res;
     });
   }
@@ -63,7 +72,7 @@ export class NewsFeedService {
     if (liked == undefined) {
       delete req.user.jti;
       delete req.user.iat;
-      newsFeed.likes = [req.user];
+      newsFeed.likes.push(req.user);
     } else {
       const index = newsFeed.likes.findIndex(value => value.id == req.user.id);
       newsFeed.likes.splice(index, 1);
