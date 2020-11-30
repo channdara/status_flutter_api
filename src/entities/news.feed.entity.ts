@@ -35,12 +35,12 @@ export class NewsFeedEntity {
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
-  @ManyToMany(() => UserEntity)
+  @ManyToMany(() => UserEntity, { cascade: ['remove'] })
   @JoinTable({ joinColumn: { name: 'news_feed_id' }, inverseJoinColumn: { name: 'user_id' } })
   @Exclude({ toPlainOnly: true })
   likes: UserEntity[];
 
-  @OneToMany(() => CommentEntity, comment => comment.news_feed)
+  @OneToMany(() => CommentEntity, comment => comment.news_feed, { cascade: ['remove'] })
   @Exclude({ toPlainOnly: true })
   comments: CommentEntity[];
 

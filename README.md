@@ -72,7 +72,7 @@
 <details>
     <summary>Get Only My News Feed</summary>
     
-    * endpoint GET: /news_feed/mine
+    * endpoint GET: /news_feed/mine/{user_id}
     * authorization: YES
     * body:
     * param:
