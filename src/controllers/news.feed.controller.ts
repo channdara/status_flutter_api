@@ -28,10 +28,11 @@ export class NewsFeedController {
       .catch(error => resError(error));
   }
 
-  @Get('/mine')
+  @Get('/mine/:id')
   @UseGuards(AuthGuard(auth_guard_type))
-  getMyNewsFeed(@Req() req: any): any {
-    return this.service.getMyNewsFeed(req.user.id)
+  getMyNewsFeed(@Param() param: any, @Req() req: any): any {
+    const id = param.id == 0 ? req.user.id : param.id;
+    return this.service.getMyNewsFeed(id, req)
       .then(data => resSuccess(MessageConstant.success_get_data, data))
       .catch(error => resError(error));
   }

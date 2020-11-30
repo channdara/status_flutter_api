@@ -1,8 +1,18 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { IsNotEmpty, MaxLength } from 'class-validator';
 import { UserEntity } from './user.entity';
 import { Exclude } from 'class-transformer';
 import { MessageConstant } from '../constants/message.constant';
+import { CommentEntity } from './comment.entity';
 
 @Entity('news_feeds')
 export class NewsFeedEntity {
@@ -25,12 +35,18 @@ export class NewsFeedEntity {
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
-  @ManyToMany(() => UserEntity)
+  @ManyToMany(() => UserEntity, { cascade: ['remove'] })
   @JoinTable({ joinColumn: { name: 'news_feed_id' }, inverseJoinColumn: { name: 'user_id' } })
   @Exclude({ toPlainOnly: true })
   likes: UserEntity[];
 
+  @OneToMany(() => CommentEntity, comment => comment.news_feed, { cascade: ['remove'] })
+  @Exclude({ toPlainOnly: true })
+  comments: CommentEntity[];
+
   like_amount: number;
+
+  comment_amount: number;
 
   is_liked: boolean;
 }
