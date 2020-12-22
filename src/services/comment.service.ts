@@ -25,11 +25,7 @@ export class CommentService {
   }
 
   async getAllComments(newsFeedID: number): Promise<CommentEntity[]> {
-    return await this.repo.find({
-      relations: ['user'],
-      where: { news_feed_id: newsFeedID },
-      order: { date: 'DESC' },
-    });
+    return await this.repo.find({ relations: ['user'], where: { news_feed_id: newsFeedID } });
   }
 
   async updateComment(id: number, body: CommentUpdateValidation, req: any): Promise<CommentEntity> {
