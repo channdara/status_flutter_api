@@ -72,55 +72,55 @@
 <details>
     <summary>Get Only My News Feed</summary>
     
-    * endpoint GET: /news_feed/mine/{user_id}
-    * authorization: YES
-    * body:
-    * param:
+    _ endpoint GET: /news_feed/mine/{user_id}
+    _ authorization: YES
+    _ body:
+    _ param:
 </details>
 
 <details>
     <summary>Get News Feed By ID</summary>
     
-    * endpoint GET: /news_feed/{news_feed_id}
-    * authorization: YES
-    * body:
-    * param:
+    _ endpoint GET: /news_feed/{news_feed_id}
+    _ authorization: YES
+    _ body:
+    _ param:
 </details>
 
 <details>
     <summary>Post News Feed</summary>
     
-    * endpoint POST: /news_feed
-    * authorization: YES
-    * body: content
-    * param:
+    _ endpoint POST: /news_feed
+    _ authorization: YES
+    _ body: content
+    _ param:
 </details>
 
 <details>
     <summary>Like Or Unlike News Feed</summary>
     
-    * endpoint POST: /news_feed/like_or_unlike/{news_feed_id}
-    * authorization: YES
-    * body:
-    * param:
+    _ endpoint POST: /news_feed/like_or_unlike/{news_feed_id}
+    _ authorization: YES
+    _ body:
+    _ param:
 </details>
 
 <details>
     <summary>Update News Feed</summary>
     
-    * endpoint PUT: /news_feed/{news_feed_id}
-    * authorization: YES
-    * body: content
-    * param:
+    _ endpoint PUT: /news_feed/{news_feed_id}
+    _ authorization: YES
+    _ body: content
+    _ param:
 </details>
 
 <details>
     <summary>Delete News Feed</summary>
     
-    * endpoint DELETE: /news_feed/{news_feed_id}
-    * authorization: YES
-    * body:
-    * param:
+    _ endpoint DELETE: /news_feed/{news_feed_id}
+    _ authorization: YES
+    _ body:
+    _ param:
 </details>
 
 ## Comment
